@@ -1,15 +1,15 @@
-#include <Wire.h>                   // библиотека для работы I²C
-#include "TroykaRTC.h"              // библиотека для работы с часами реального времени
-#include <LiquidCrystal_I2C.h>      // подключаем библиотеку LiquidCrystal_I2C
+#include <Wire.h>                   // Library for I2C operation
+#include "TroykaRTC.h"              // Library for working with real-time clocks
+#include <LiquidCrystal_I2C.h>      // library for working with LiquidCrystal_I2C
 #include "Settings.h"
 #include "Var.h"
 
  
 void setup()
 {
-  clock.begin();                              // инициализация часов
-  //clock.set(10,25,45,27,07,2005,THURSDAY);  // метод установки времени и даты в модуль вручную
-  clock.set(__TIMESTAMP__);                   // метод установки времени и даты автоматически при компиляции
+  clock.begin();                              // Initializing the clock
+  //clock.set(10,25,45,27,07,2005,THURSDAY);  // The method of setting the time and date in the module manually
+  clock.set(__TIMESTAMP__);                   // The method of setting the time and date automatically when compiling
 
   lcd.init();
   lcd.backlight();
@@ -17,11 +17,11 @@ void setup()
  
 void loop()
 {
-  clock.read();                         // запрашиваем данные с часов
-  // считываем показания часов и минут в переменные
+  clock.read();                         // Requesting data from the watch
+  // I read the readings of hours and minutes into variables
   hour = clock.getHour();
   minute = clock.getMinute();
-  // считываем состояние пина
+  // Reading the pin status
   buttonState1 = digitalRead(BUTTON_PIN_1);
   buttonState2 = digitalRead(BUTTON_PIN_2);
   buttonState3 = digitalRead(BUTTON_PIN_3);
@@ -31,7 +31,7 @@ void loop()
    lcd.print(hour);
    lcd.print(" : ");
    lcd.print(minute);
-  // в зависимости от состояние кнопок увеличиваем / уменьшаем часы и минуты
+  // Depending on the state of the buttons, we increase / decrease the hours and minutes
   if(!buttonState1)
   {
     clock.setHour(hour + 1);
